@@ -5,14 +5,12 @@ const { UserModel } = require("../Models");
 
 class UserRepository {
 
-    constructor({id, email, name, family, password, salt}) {
-        this.id = id
+    constructor({ email, name, family, password, salt}) {
         this.email = email
         this.name = name
         this.family = family
         this.password = password
         this.salt = salt
-        console.log(this);
     }
 
     async save() {
@@ -60,7 +58,7 @@ class UserRepository {
         try {
 
             const update_object = {}
-            ths.name !== undefined ? update_object.name = ths.name : null
+            this.name !== undefined ? update_object.name = this.name : null
             this.family !== undefined ? update_object.family = this.family : null
 
             const user_model = await UserModel
