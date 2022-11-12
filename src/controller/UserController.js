@@ -9,7 +9,7 @@ exports.send_verify_email = (req, res, next) => {
         user_services.send_verify_email(email).then(() => {
             res.status(204).end()
         }).catch((error) => {
-            next()
+            next(error)
         })
     } else {
         res.status(400)
@@ -36,15 +36,15 @@ exports.sing_up = (req, res, next) => {
                     res.send({
                         token
                     })
-                }).catch(() => {
-                    next()
+                }).catch((error) => {
+                    next(error)
                 })
             } else {
                 res.status(401)
                 res.send("verification code is not valid")
             }
-        }).catch(() => {
-            next()
+        }).catch((error) => {
+            next(error)
         })
     } else {
         res.status(400)
@@ -69,8 +69,7 @@ exports.sing_in = (req, res, next) => {
                 token
             })
         }).catch((error) => {
-            console.log(error);
-            next()
+            next(error)
         })
     } else {
         res.status(400)
@@ -89,8 +88,8 @@ exports.sing_in = (req, res, next) => {
 exports.user_info = (req, res, next) => {
     user_services.get_user_data(req.user.id).then((user_data) => {
         res.send(user_data)
-    }).catch(() => {
-        next()
+    }).catch((error) => {
+        next(error)
     })
 }
 
@@ -101,8 +100,8 @@ exports.edit_user = (req, res, next) => {
     if (validator === true) {
         user_services.edit_user_data(req.user.id, { name, family }).then((user_data) => {
             res.status(204).end()
-        }).catch(() => {
-            next()
+        }).catch((error) => {
+            next(error)
         })
     } else {
         res.status(400)
